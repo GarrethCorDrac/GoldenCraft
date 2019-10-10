@@ -20,6 +20,7 @@ namespace GoldenCraft.Models
         public DbSet<Kill> Kills { get; set; }
         public DbSet<Move> Moves { get; set; }
         public DbSet<BlockBreak> BlockBreaks { get; set; }
+        public DbSet<Playtime> Playtimes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,7 @@ namespace GoldenCraft.Models
             modelBuilder.Entity<Kill>().HasKey(it => new { it.PlayerUuid, it.World, it.VictimType, it.VictimName, it.Weapon });
             modelBuilder.Entity<Move>().HasKey(it => new { it.PlayerUuid, it.World, it.Type });
             modelBuilder.Entity<BlockBreak>().HasKey(it => new { it.Id});
+            modelBuilder.Entity<Playtime>().HasKey(it => new { it.PlayerUuid, it.World});
         } 
     }
 }

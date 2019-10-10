@@ -103,5 +103,31 @@ namespace GoldenCraft.Controllers
 
             return result;
         }
+
+        public ActionResult GetPlaytimes()
+        {
+            JsonResult result = new JsonResult(null);
+
+            try
+            {
+                var times = context.Playtimes.Include(it => it.Player).ToList();
+
+                var graphData = times
+                    .Select(it => new
+                    {
+                        it.Player.UserName,
+                        it.Time
+                    })
+                    .ToList();
+
+                result = this.Json(graphData);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+
+            return result;
+        }
     }
 }

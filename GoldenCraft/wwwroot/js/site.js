@@ -64,6 +64,34 @@ $(document).ready(function () {
             drawGraph(dataArray, 'diamonds_div', options);
         }
     })
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'JSON',
+        url: '/Home/GetPlaytimes',
+        success: function (response) {
+            var options = {
+                legend: { position: 'none' },
+                axes: {
+                    x: {
+                        0: { side: 'bottom', label: '' } // Top x-axis.
+                    }
+                },
+                bar: { groupWidth: "70%" },
+                width: 750
+            };
+
+            var dataArray = [
+                ['Gracz', 'Czas gry']
+            ];
+
+            $.each(response, function (i, item) {
+                dataArray.push([item.userName, item.time]);
+            });
+
+            drawGraph(dataArray, 'playtime_div', options);
+        }
+    })
 });
 
 function drawGraph(dataValues, elementId, options) {

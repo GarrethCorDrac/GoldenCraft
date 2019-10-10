@@ -14,5 +14,6 @@ namespace GoldenCraft.Models
         public virtual ICollection<Kill> Kills { get; set; }
         public virtual ICollection<Move> Moves { get; set; }
         public virtual ICollection<BlockBreak> BlockBreaks { get; set; }
+        public virtual ICollection<Playtime> Playtimes { get; set; }
     }
 }
