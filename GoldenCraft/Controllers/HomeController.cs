@@ -76,5 +76,32 @@ namespace GoldenCraft.Controllers
 
             return result;
         }
+
+        public ActionResult GetDiamondBreaks()
+        {
+            JsonResult result = new JsonResult(null);
+
+            try
+            {
+                var breaks = context.BlockBreaks.Include(it => it.Player).Where(it=>it.Material.ToLower().Contains("diamond")).ToList();
+
+                var graphData = breaks
+                    .GroupBy(it => new { it.Player })
+                    .Select(it => new
+                    {
+                        it.Key.Player.UserName,
+                        Amount = it.Sum(x=> x.Amount)
+                    })
+                    .ToList();
+
+                result = this.Json(graphData);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+
+            return result;
+        }
     }
 }
