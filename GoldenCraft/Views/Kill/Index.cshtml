@@ -1,0 +1,67 @@
+﻿@model IEnumerable<GoldenCraft.Models.Kill>
+
+@{
+    ViewData["Title"] = "Kill";
+}
+
+<h2>Kill</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Player.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.World)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VictimType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VictimName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weapon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastUpdated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Player.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.World)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VictimType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VictimName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weapon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastUpdated)
+            </td>
+            <td>
+                @*<a asp-action="Details" asp-route-id="@item.PlayerUuid">Details</a> |*@
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

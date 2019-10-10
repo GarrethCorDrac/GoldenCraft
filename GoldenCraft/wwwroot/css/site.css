@@ -1,0 +1,78 @@
+﻿body {
+    background: white;
+    margin: 0px;
+    font-family: "Roboto";
+    font-size: 25px;
+}
+
+#NAGLOWEK {
+    background: #2196f3;
+    box-shadow: 0 3px 2px rgba(0,0,0,0.3);
+    border-radius: 0px 0px 7px 7px;
+    min-width: 1150px;
+}
+
+nav {
+    margin: 0px auto 0px auto;
+    padding: 10px 10px 10px 50px;
+    height: 90px;
+    line-height: 90px;
+    width: 1150px;
+}
+
+#LOGO {
+    float: left;
+    padding-right: 20px;
+}
+
+    #LOGO img {
+        width: 70px;
+    }
+
+
+#TITLE {
+    float: left;
+}
+
+    #TITLE img {
+        height: 50px;
+        padding-top: 20px;
+    }
+
+#MENU {
+    float: left;
+}
+
+.PRZYCISK {
+    text-align: center;
+    padding-left: 50px;
+    float: left;
+}
+
+#TRESC {
+    padding-top: 50px;
+    /*	background: blue;	*/
+    width: 1150px;
+    margin: 0px auto 0px auto;
+}
+
+.WYKRES {
+    padding: 1%;
+    width: 48%;
+    /*	background: yellow;	*/
+    float: left;
+}
+
+#STOPKA {
+    background: orange;
+    float: left;
+    width: 1150px;
+    margin: 0px auto 0px auto;
+}
+
+.txt {
+    padding: 10px;
+    height: 50px;
+    display: table-cell;
+    vertical-align: middle;
+}
