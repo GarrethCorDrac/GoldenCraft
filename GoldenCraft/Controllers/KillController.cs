@@ -23,30 +23,6 @@ namespace GoldenCraft.Controllers
         public ActionResult Details(int id)
         {
             return View();
-        }
-
-        public ActionResult GetKills()
-        {
-            JsonResult result = new JsonResult(null);
-
-            try
-            {
-                var kills = context.Kills.Include(it => it.Player).ToList();
-
-                var graphData = kills
-                    .Where(it => it.Player != null)
-                    .GroupBy(it => new { it.Player })
-                    .Select(it => new { it.Key.Player.UserName, Amount = it.Sum(x => x.Amount) })
-                    .ToList();
-
-                result = this.Json(graphData);
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex);
-            }
-
-            return result;
-        }
+        }      
     }
 }

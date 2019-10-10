@@ -6,33 +6,40 @@ $(document).ready(function () {
     $.ajax({
         type: 'POST',
         dataType: 'JSON',
-        url: '/Kill/GetKills',
+        url: '/Home/GetMoves',
         success: function (response) {
             console.log(response);
-            drawGraph(response, 'top_x_div');
+            drawGraph(response, 'move_div');
         }
     })
 });
 
 function drawGraph(dataValues, elementId) {
     var dataArray = [
-        [ 'User Name', 'Amount' ]
+        [ 'Przemierzony dystans', 'wędrując', 'łądzią', 'biegnąc', 'skradając się', 'latając', 'inaczej' ]
     ];
 
     $.each(dataValues, function (i, item) {
-        dataArray.push([item.userName, item.amount]);
+        dataArray.push([item.userName, item.walking, item.boat, item.sprinting, item.sneaking, item.flying, item.other]);
     });
 
     var data = google.visualization.arrayToDataTable(dataArray);  
 
     var options = {
-        legend: { position: 'none' },
-        axes: {
-            x: {
-                0: { side: 'bottom', label: '' } // Top x-axis.
-            }
+        legend: { position: 'top', maxLines: 3 },
+        bar: { groupWidth: '70%' },
+        isStacked: true,
+        series: {
+            0: { color: 'green' },
+            1: { color: 'blue' },
+            2: { color: 'red' },
+            3: { color: 'blue' },
+            4: { color: 'yellow' },
+            5: { color: 'red' },
+            6: { color: 'white' },
         },
-        bar: { groupWidth: "70%" }
+        'width': 1000
+
     };
 
     var chart = new google.charts.Bar(document.getElementById(elementId));

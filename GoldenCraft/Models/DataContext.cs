@@ -18,11 +18,13 @@ namespace GoldenCraft.Models
 
         public DbSet<Player> Players { get; set; }
         public DbSet<Kill> Kills { get; set; }
+        public DbSet<Move> Moves { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Player>().HasKey(it => it.Uuid);
             modelBuilder.Entity<Kill>().HasKey(it => new { it.PlayerUuid, it.World, it.VictimType, it.VictimName, it.Weapon });
+            modelBuilder.Entity<Move>().HasKey(it => new { it.PlayerUuid, it.World, it.Type });
         } 
     }
 }

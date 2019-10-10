@@ -5,33 +5,76 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GoldenCraft.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoldenCraft.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly DataContext context = new DataContext();
+
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        public ActionResult GetKills()
         {
-            ViewData["Message"] = "Your application description page.";
+            JsonResult result = new JsonResult(null);
 
-            return View();
+            try
+            {
+                var kills = context.Kills.Include(it => it.Player).ToList();
+
+                var graphData = kills
+                    .Where(it => it.Player != null)
+                    .GroupBy(it => new { it.Player })
+                    .Select(it => new { it.Key.Player.UserName, Amount = it.Sum(x => x.Amount) })
+                    .ToList();
+
+                result = this.Json(graphData);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+
+            return result;
         }
 
-        public IActionResult Contact()
+        public ActionResult GetMoves()
         {
-            ViewData["Message"] = "Your contact page.";
+            JsonResult result = new JsonResult(null);
 
-            return View();
-        }
+            try
+            {
+                var moves = context.Moves.Include(it => it.Player).ToList();
 
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                var types = new string[] { "walking", "boat", "sprinting", "sneaking", "flying" };
+
+                var graphData = moves
+                    .GroupBy(it => new { it.Player })
+                    .Select(it => new
+                    {
+                        it.Key.Player.UserName,
+                        Walking = it.Where(x=>x.Type.ToLower() == "walking").Sum(x=>x.Amount),
+                        Boat = it.Where(x=>x.Type.ToLower() == "boat").Sum(x=>x.Amount),
+                        Sprinting = it.Where(x=>x.Type.ToLower() == "sprinting").Sum(x=>x.Amount),
+                        Sneaking = it.Where(x=>x.Type.ToLower() == "sneaking").Sum(x=>x.Amount),
+                        Flying = it.Where(x=>x.Type.ToLower() == "flying").Sum(x=>x.Amount),
+                        Other = it.Where(x => !types.Contains(x.Type.ToLower())).Sum(x => x.Amount)
+                    })
+                    .ToList();
+
+                result = this.Json(graphData);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+
+            return result;
         }
     }
 }

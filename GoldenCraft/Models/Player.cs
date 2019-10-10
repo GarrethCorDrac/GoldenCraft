@@ -12,5 +12,6 @@ namespace GoldenCraft.Models
         public string UserName { get; set; }
 
         public virtual ICollection<Kill> Kills { get; set; }
+        public virtual ICollection<Move> Moves { get; set; }
     }
 }
